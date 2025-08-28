@@ -4,107 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
-    <title>Predictor</title>
+    <title>Laptop Price Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="wrapper">
-        <div class = "title">
-            <h1>Laptop Price Predictor</h1>
+    <header class="header">
+        <img src="/static/logo.png" alt="Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="#predict">Predict</a></li>
+                <li><a href="#compare">Compare</a></li>
+                <li><a href="#history">History</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside class="info-card">
+            <h2>How it works</h2>
+            <p>Enter your laptop specs to predict the price using a machine learning model trained on real data. Use Compare to see two predictions side by side. Your prediction history is saved for this session.</p>
+            <ul>
+                <li>Fill in all fields for best results.</li>
+                <li>Click <b>Show Example</b> to auto-fill a sample.</li>
+                <li>Click <b>Reset</b> to clear the form.</li>
+            </ul>
+        </aside>
+        <div class="wrapper" id="predict">
+            <div class="title">
+                <h1>Laptop Price Predictor</h1>
+            </div>
+            <form action="/" method="post" id="predictForm">
+                <div class="inputfield">
+                    <label for ="ram">Ram (GB)</label>
+                    <input type="text" id="ram" name="ram" placeholder="e.g. 8">
+                </div>
+                <div class="inputfield">
+                    <label for ="weight">Weight (kg)</label>
+                    <input type="text" id="weight" name="weight" required placeholder="e.g. 1.5">
+                </div>
+                <div class="inputfield">
+                    <label for ="company">Company</label>
+                    <div class="custom_select">
+                        <select name = "company" id = "company">
+                            <option value="" selected hidden>Select</option>
+                            <option value="acer">Acer</option>
+                            <option value="apple">Apple</option>
+                            <option value="asus">Asus</option>
+                            <option value="dell">Dell</option>
+                            <option value="hp">HP</option>
+                            <option value="lenovo">Lenovo</option>
+                            <option value="msi">MSI</option>
+                            <option value="toshiba">Toshiba</option>
+                            <option value="other">Other</option>
+                        </select>     
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for ="typename">Type Name</label>
+                    <div class="custom_select">
+                        <select name="typename" id="typename">
+                            <option value="" selected hidden>Select</option>
+                            <option value="gaming">Gaming</option>
+                            <option value="netbook">Net Book</option>
+                            <option value="notebook">Note Book</option>
+                            <option value="ultrabook">Ultrabook</option>
+                            <option value="workstation">Workstation</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for ="opsys">Operating System</label>
+                    <div class="custom_select">
+                        <select name="opsys" id="opsys">
+                            <option value="" selected hidden>Select</option>
+                            <option value="windows">Windows</option>
+                            <option value="mac">Mac</option>
+                            <option value="linux">Linux</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for ="cpuname">CPU</label>
+                    <div class="custom_select">
+                        <select name="cpuname" id="cpuname">
+                            <option value="" selected hidden>Select</option>
+                            <option value="intelcorei3">Intel Core i3</option>
+                            <option value="intelcorei5">Intel Core i5</option>
+                            <option value="intelcorei7">Intel Core i7</option>
+                            <option value="amd">AMD</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield">
+                    <label for ="gpuname">GPU</label>
+                    <div class="custom_select">
+                        <select name="gpuname" id="gpuname">
+                            <option value="" selected hidden>Select</option>
+                            <option value="intel">Intel</option>
+                            <option value="amd">AMD</option>
+                            <option value="nvidia">Nvidia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inputfield checkboxes">
+                    <label for ="touchscreen">Touch Screen
+                        <input type="checkbox" id="touchscreen" name="touchscreen">
+                    </label>
+                    <label for ="ips">IPS
+                        <input type="checkbox" id="ips" name="ips">
+                    </label>
+                </div>
+                <div class="inputfield btn-row">
+                    <input type="submit" value="Predict Price" class="btn">
+                    <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
+                    <button type="button" class="btn btn-example" onclick="fillExample()">Show Example</button>
+                </div>
+            </form>
+            <div class="result" id="result">
+                {% if pred != 0 %}
+                <p>
+                    Estimated Price : LKR{{pred}}
+                </p>
+                <canvas id="priceChart" width="300" height="120"></canvas>
+                {% endif %}
+                <div id="loadingSpinner" style="display:none;">
+                    <div class="spinner"></div>
+                    <span>Predicting...</span>
+                </div>
+            </div>
         </div>
-        <form action="/" method="post">
-            <div class="inputfield">
-                <label for ="ram">Ram (GB)</label>
-                <input type="text" id="input" name="ram" placeholder="e.g. 8">
-            </div>
-            <div class="inputfield">
-                <label for ="weight">Weight (kg)</label>
-                <input type="text" id="input" name="weight" required placeholder="e.g. 1.5">
-            </div>
-            <div class="inputfield">
-                <label for ="company">Company</label>
-                <div class="custom_select">
-                    <select name = "company" id = "company">
-                        <option value="" selected hidden>Select</option>
-                        <option value="acer">Acer</option>
-                        <option value="apple">Apple</option>
-                        <option value="asus">Asus</option>
-                        <option value="dell">Dell</option>
-                        <option value="hp">HP</option>
-                        <option value="lenovo">Lenovo</option>
-                        <option value="msi">MSI</option>
-                        <option value="toshiba">Toshiba</option>
-                        <option value="other">Other</option>
-                    </select>     
+        <section class="wrapper" id="compare">
+            <div class="title"><h2>Compare Two Laptops</h2></div>
+            <form id="compareForm">
+                <div class="compare-row">
+                    <div class="compare-col">
+                        <h3>Laptop 1</h3>
+                        <input type="text" name="ram1" placeholder="Ram (GB)">
+                        <input type="text" name="weight1" placeholder="Weight (kg)">
+                        <select name="company1">
+                            <option value="" selected hidden>Company</option>
+                            <option value="acer">Acer</option>
+                            <option value="apple">Apple</option>
+                            <option value="asus">Asus</option>
+                            <option value="dell">Dell</option>
+                            <option value="hp">HP</option>
+                            <option value="lenovo">Lenovo</option>
+                            <option value="msi">MSI</option>
+                            <option value="toshiba">Toshiba</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="compare-col">
+                        <h3>Laptop 2</h3>
+                        <input type="text" name="ram2" placeholder="Ram (GB)">
+                        <input type="text" name="weight2" placeholder="Weight (kg)">
+                        <select name="company2">
+                            <option value="" selected hidden>Company</option>
+                            <option value="acer">Acer</option>
+                            <option value="apple">Apple</option>
+                            <option value="asus">Asus</option>
+                            <option value="dell">Dell</option>
+                            <option value="hp">HP</option>
+                            <option value="lenovo">Lenovo</option>
+                            <option value="msi">MSI</option>
+                            <option value="toshiba">Toshiba</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="inputfield">
-                <label for ="typename">Type Name</label>
-                <div class="custom_select">
-                    <select name="typename" id="typename">
-                        <option value="" selected hidden>Select</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="netbook">Net Book</option>
-                        <option value="notebook">Note Book</option>
-                        <option value="ultrabook">Ultrabook</option>
-                        <option value="workstation">Workstation</option>
-                    </select>
+                <div class="inputfield btn-row">
+                    <button type="button" class="btn btn-compare" onclick="compareLaptops()">Compare</button>
                 </div>
-            </div>
-            <div class="inputfield">
-                <label for ="opsys">Operating System</label>
-                <div class="custom_select">
-                    <select name="opsys" id="opsys">
-                        <option value="" selected hidden>Select</option>
-                        <option value="windows">Windows</option>
-                        <option value="mac">Mac</option>
-                        <option value="linux">Linux</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="inputfield">
-                <label for ="cpuname">CPU</label>
-                <div class="custom_select">
-                    <select name="cpuname" id="cpuname">
-                        <option value="" selected hidden>Select</option>
-                        <option value="intelcorei3">Intel Core i3</option>
-                        <option value="intelcorei5">Intel Core i5</option>
-                        <option value="intelcorei7">Intel Core i7</option>
-                        <option value="amd">AMD</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div class="inputfield">
-                <label for ="gpuname">GPU</label>
-                <div class="custom_select">
-                    <select name="gpuname" id="gpuname">
-                        <option value="" selected hidden>Select</option>
-                        <option value="intel">Intel</option>
-                        <option value="amd">AMD</option>
-                        <option value="nvidia">Nvidia</option>
-                    </select>
-                </div>
-            </div>
-            <div class="inputfield checkboxes">
-                <label for ="touchscreen">Touch Screen
-                    <input type="checkbox" id="touchscreen" name="touchscreen">
-                </label>
-                <label for ="ips">IPS
-                    <input type="checkbox" id="ips" name="ips">
-                </label>
-            </div>
-            <div class="inputfield">
-                <input type="submit" value="Predict Price" class="btn">
-            </div>
-        </form>
-        <div class="result">
-            {% if pred != 0 %}
-            <p>
-                Estimated Price : LKR{{pred}}
-            </p>
-            {% endif %}
-        </div>
-    </div>
+                <div class="result" id="compareResult"></div>
+            </form>
+        </section>
+        <section class="wrapper" id="history">
+            <div class="title"><h2>Prediction History</h2></div>
+            <ul id="historyList"></ul>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Laptop Price Predictor. Made with <span style="color:#e25555">&#9829;</span> by RensithUdara.</p>
+        <a href="https://github.com/RensithUdara/Laptop-Price-Predictor" target="_blank">GitHub</a>
+    </footer>
+    <script src="/static/ui.js"></script>
 </body>
 </html>
