@@ -11,17 +11,15 @@
         <div class = "title">
             <h1>Laptop Price Predictor</h1>
         </div>
-
         <form action="/" method="post">
             <div class="inputfield">
                 <label for ="ram">Ram (GB)</label>
-                <input type="text" id="input" name="ram">
+                <input type="text" id="input" name="ram" placeholder="e.g. 8">
             </div>
             <div class="inputfield">
                 <label for ="weight">Weight (kg)</label>
-                <input type="text" id="input" name="weight" required>
+                <input type="text" id="input" name="weight" required placeholder="e.g. 1.5">
             </div>
-          
             <div class="inputfield">
                 <label for ="company">Company</label>
                 <div class="custom_select">
@@ -41,7 +39,7 @@
             </div>
             <div class="inputfield">
                 <label for ="typename">Type Name</label>
-                <div class="custome_select">
+                <div class="custom_select">
                     <select name="typename" id="typename">
                         <option value="" selected hidden>Select</option>
                         <option value="gaming">Gaming</option>
@@ -54,7 +52,7 @@
             </div>
             <div class="inputfield">
                 <label for ="opsys">Operating System</label>
-                <div class="custome_select">
+                <div class="custom_select">
                     <select name="opsys" id="opsys">
                         <option value="" selected hidden>Select</option>
                         <option value="windows">Windows</option>
@@ -66,7 +64,7 @@
             </div>
             <div class="inputfield">
                 <label for ="cpuname">CPU</label>
-                <div class="custome_select">
+                <div class="custom_select">
                     <select name="cpuname" id="cpuname">
                         <option value="" selected hidden>Select</option>
                         <option value="intelcorei3">Intel Core i3</option>
@@ -79,7 +77,7 @@
             </div>
             <div class="inputfield">
                 <label for ="gpuname">GPU</label>
-                <div class="custome_select">
+                <div class="custom_select">
                     <select name="gpuname" id="gpuname">
                         <option value="" selected hidden>Select</option>
                         <option value="intel">Intel</option>
@@ -88,12 +86,13 @@
                     </select>
                 </div>
             </div>
-              <div class="check">
-                <label for ="touchscreen">Touch Screen</label>
-                <input type="checkbox" id="input" name="touchscreen">
-           
-                <label for ="ips">IPS</label>
-                <input type="checkbox" id="input" name="ips">
+            <div class="inputfield checkboxes">
+                <label for ="touchscreen">Touch Screen
+                    <input type="checkbox" id="touchscreen" name="touchscreen">
+                </label>
+                <label for ="ips">IPS
+                    <input type="checkbox" id="ips" name="ips">
+                </label>
             </div>
             <div class="inputfield">
                 <input type="submit" value="Predict Price" class="btn">
