@@ -346,3 +346,35 @@ main {
 .footer a:hover {
     color: #2575fc;
 }
+
+.toast {
+    visibility: hidden;
+    min-width: 220px;
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    color: #fff;
+    text-align: center;
+    border-radius: 12px;
+    padding: 16px 28px;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%) scale(0.95);
+    font-size: 1.08rem;
+    font-weight: 600;
+    box-shadow: 0 8px 32px 0 #2575fc55;
+    opacity: 0;
+    transition: opacity 0.4s, transform 0.4s, visibility 0.4s;
+    pointer-events: none;
+}
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+    animation: toastIn 0.5s cubic-bezier(.4,0,.2,1);
+}
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(30px) scale(0.9); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+}
