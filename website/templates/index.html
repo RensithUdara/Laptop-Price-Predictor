@@ -17,6 +17,7 @@
                 <li><a href="#history">History</a></li>
             </ul>
         </nav>
+        <button id="darkModeToggle" class="btn btn-darkmode" title="Toggle dark mode">🌙</button>
     </header>
     <main>
         <aside class="info-card">
@@ -26,6 +27,7 @@
                 <li>Fill in all fields for best results.</li>
                 <li>Click <b>Show Example</b> to auto-fill a sample.</li>
                 <li>Click <b>Reset</b> to clear the form.</li>
+                <li>Use <b>Download</b> or <b>Share</b> after prediction.</li>
             </ul>
         </aside>
         <div class="wrapper" id="predict">
@@ -119,20 +121,46 @@
                     <input type="submit" value="Predict Price" class="btn">
                     <button type="button" class="btn btn-reset" onclick="resetForm()">Reset</button>
                     <button type="button" class="btn btn-example" onclick="fillExample()">Show Example</button>
+                    <button type="button" class="btn btn-download" onclick="downloadPrediction()">Download</button>
+                    <button type="button" class="btn btn-share" onclick="sharePrediction()">Share</button>
+                </div>
+                <div class="inputfield currency-row">
+                    <label for="currency">Currency:</label>
+                    <select id="currency" onchange="convertCurrency()">
+                        <option value="LKR">LKR</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="INR">INR</option>
+                    </select>
                 </div>
             </form>
             <div class="result" id="result">
+                <div id="progressBar" class="progress-bar"></div>
                 {% if pred != 0 %}
                 <p>
-                    Estimated Price : LKR{{pred}}
+                    Estimated Price : <span id="priceValue">LKR{{pred}}</span>
                 </p>
                 <canvas id="priceChart" width="300" height="120"></canvas>
+                <div id="featureImportance"></div>
                 {% endif %}
                 <div id="loadingSpinner" style="display:none;">
                     <div class="spinner"></div>
                     <span>Predicting...</span>
                 </div>
+                <div id="toast" class="toast"></div>
             </div>
+            <div class="feedback">
+                <label for="rating">How accurate was this prediction?</label>
+                <select id="rating" onchange="submitFeedback()">
+                    <option value="">Rate...</option>
+                    <option value="5">Perfect</option>
+                    <option value="4">Good</option>
+                    <option value="3">Average</option>
+                    <option value="2">Poor</option>
+                    <option value="1">Bad</option>
+                </select>
+            </div>
+            <button class="btn btn-faq" onclick="openFAQ()">FAQ / Help</button>
         </div>
         <section class="wrapper" id="compare">
             <div class="title"><h2>Compare Two Laptops</h2></div>
@@ -183,6 +211,18 @@
             <div class="title"><h2>Prediction History</h2></div>
             <ul id="historyList"></ul>
         </section>
+        <div id="faqModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeFAQ()">&times;</span>
+                <h2>FAQ / Help</h2>
+                <ul>
+                    <li><b>How accurate is the prediction?</b> The model is trained on real data, but actual prices may vary.</li>
+                    <li><b>What if I get an error?</b> Check your input values and try again.</li>
+                    <li><b>How do I compare two laptops?</b> Use the Compare section below the main form.</li>
+                    <li><b>How do I download or share?</b> Use the Download/Share buttons after prediction.</li>
+                </ul>
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <p>&copy; 2025 Laptop Price Predictor. Made with <span style="color:#e25555">&#9829;</span> by RensithUdara.</p>
