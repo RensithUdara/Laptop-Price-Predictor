@@ -123,3 +123,137 @@ body {
     margin-top: 18px;
     box-shadow: 0 2px 8px 0 #2575fc33;
 }
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.95);
+    padding: 16px 32px;
+    box-shadow: 0 2px 8px 0 #2575fc22;
+    border-bottom: 2px solid #2575fc22;
+}
+.logo {
+    height: 40px;
+    margin-right: 18px;
+}
+nav ul {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #2575fc;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+nav ul li a:hover {
+    color: #6a11cb;
+}
+
+.info-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px 0 #2575fc22;
+    padding: 24px 20px;
+    margin: 32px auto 24px auto;
+    max-width: 420px;
+    color: #333;
+}
+.info-card h2 {
+    color: #2575fc;
+    margin-bottom: 10px;
+}
+.info-card ul {
+    margin-top: 10px;
+    padding-left: 18px;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.btn-reset {
+    background: #e25555;
+    background: linear-gradient(90deg, #e25555 0%, #ffb347 100%);
+}
+.btn-example {
+    background: #43e97b;
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    color: #222;
+}
+.btn-compare {
+    background: #ffb347;
+    background: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+    color: #222;
+}
+
+.compare-row {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}
+.compare-col {
+    flex: 1;
+    background: #f4f8fb;
+    border-radius: 10px;
+    padding: 18px 12px;
+    box-shadow: 0 1px 4px 0 #2575fc11;
+}
+.compare-col h3 {
+    color: #2575fc;
+    margin-bottom: 10px;
+}
+
+#compareResult p {
+    color: #2575fc;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+#historyList {
+    padding: 0 0 0 18px;
+    color: #333;
+}
+#historyList li {
+    margin-bottom: 4px;
+    font-size: 1rem;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #2575fc;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 10px;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.footer {
+    background: rgba(255,255,255,0.95);
+    text-align: center;
+    padding: 18px 0 10px 0;
+    color: #2575fc;
+    font-size: 1rem;
+    margin-top: 40px;
+    border-top: 2px solid #2575fc22;
+}
+.footer a {
+    color: #6a11cb;
+    margin-left: 10px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.footer a:hover {
+    color: #2575fc;
+}
