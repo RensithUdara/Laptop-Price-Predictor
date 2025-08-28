@@ -5,51 +5,66 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 body {
-    background: #f7f7f7;
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    color: #222;
 }
 
 .wrapper {
-    max-width: 400px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 30px 30px 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    max-width: 420px;
+    margin: 50px auto;
+    background: rgba(255,255,255,0.95);
+    padding: 35px 35px 25px 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(2px);
+    position: relative;
+    overflow: hidden;
 }
   
 .title h1 {
     text-align: center;
-    font-size: 1.6rem;
-    margin-bottom: 25px;
-    letter-spacing: 1px;
+    font-size: 2.1rem;
+    margin-bottom: 28px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .inputfield {
     display: flex;
     flex-direction: column;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .inputfield label {
-    margin-bottom: 6px;
-    font-weight: 500;
-    font-size: 1rem;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #2575fc;
 }
 
 .inputfield input[type="text"],
 .inputfield select {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1.5px solid #d1d1d1;
+    border-radius: 7px;
+    font-size: 1.05rem;
     outline: none;
-    transition: border 0.2s;
+    transition: border 0.2s, box-shadow 0.2s;
+    background: #f4f8fb;
+    color: #222;
 }
 
 .inputfield input[type="text"]:focus,
 .inputfield select:focus {
-    border: 1.5px solid #333;
+    border: 1.5px solid #2575fc;
+    box-shadow: 0 0 0 2px #2575fc33;
 }
 
 .inputfield.checkboxes {
@@ -79,24 +94,32 @@ body {
 
 .btn {
     width: 100%;
-    padding: 10px;
-    background: #111;
+    padding: 12px;
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
     color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
+    border-radius: 7px;
+    font-size: 1.15rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
+    box-shadow: 0 2px 8px 0 #2575fc33;
+    letter-spacing: 1px;
+    transition: background 0.2s, box-shadow 0.2s;
 }
 
 .btn:hover {
-    background: #333;
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    box-shadow: 0 4px 16px 0 #6a11cb33;
 }
   
 .result p{
     text-align: center;
-    color: blue;
-    font-size: 18px;
+    color: #fff;
+    background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+    font-size: 1.25rem;
     font-weight: bold;
+    padding: 12px 0;
+    border-radius: 7px;
+    margin-top: 18px;
+    box-shadow: 0 2px 8px 0 #2575fc33;
 }
